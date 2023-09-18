@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: liquibase/table/transporter-scripts.sql
+  - include:
+      file: liquibase/table/users-scripts.sql
+  - include:
+      file: liquibase/table/direction-scripts.sql
+  - include:
+      file: liquibase/table/ticket-scripts.sql

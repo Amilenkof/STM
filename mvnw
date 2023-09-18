@@ -19,7 +19,7 @@
 # ----------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------
-# Apache Maven Wrapper startup batch script, version 3.2.0
+# Apache Maven Wrapper startup batch ticket-scripts.sql, version 3.2.0
 #
 # Required ENV vars:
 # ------------------
