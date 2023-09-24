@@ -17,6 +17,8 @@ public class Ticket {
     private LocalDateTime dateTime;
     private String seat;
     private BigDecimal price;
+    @Setter
     private User user;
+    @Setter
     private String status;
 }

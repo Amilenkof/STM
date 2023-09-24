@@ -2,6 +2,11 @@ package com.example.demo.repository.directionRepository;
 
 import com.example.demo.model.Direction;
 
+import java.util.Optional;
+
 public interface DirectionRepository {
-    Direction findByID(long id);
+
+
+
+    Direction findById(long id);
 }

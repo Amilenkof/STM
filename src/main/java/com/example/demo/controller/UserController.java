@@ -1,12 +1,13 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.DTO.UserDtoIN;
+import com.example.demo.model.DTO.UserDtoOut;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository.UserRepositoryImpl;
 import com.example.demo.service.UserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.Getter;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -18,7 +19,12 @@ public class UserController {
     }
 
     @PostMapping("/greateNewUser")
-    public User greateNewUser(@RequestBody User user ){
-        return service.greateNewUser(user);
+    public ResponseEntity<UserDtoOut> greateNewUser(@RequestBody UserDtoIN userDtoIN) {
+        return ResponseEntity.ok(service.greateNewUser(userDtoIN));
+    }
+
+    @GetMapping("/getUserById")
+    public ResponseEntity<UserDtoOut> getUserById(@RequestParam("id") long id) {
+        return ResponseEntity.ok(service.getUserById(id));
     }
 }

@@ -31,3 +31,7 @@ CREATE TABLE ticket
     UNIQUE (direction_id,seat)
 
 );
+--changeset aMilenkov:3
+ALTER TABLE ticket
+    ALTER user_id SET DEFAULT NULL,
+    ALTER status SET DEFAULT 'FREE';

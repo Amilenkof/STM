@@ -18,3 +18,6 @@ CREATE TABLE users
     name     varchar(255) not null,
     password varchar(255) not null
 );
+--changeset aMilenkov:3
+ALTER TABLE users
+    ADD CONSTRAINT unique_login UNIQUE (login);
