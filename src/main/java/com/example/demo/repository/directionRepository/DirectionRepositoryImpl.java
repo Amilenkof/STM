@@ -4,6 +4,7 @@ import com.example.demo.exception.DirectionNotFoundException;
 import com.example.demo.model.Direction;
 import com.example.demo.repository.ticketRepository.TickerRepositoryImpl;
 import com.example.demo.repository.transporterRepository.TransporterRepositoryImpl;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -31,8 +32,7 @@ public class DirectionRepositoryImpl implements DirectionRepository {
             """;
 
 
-
-
+    @Transactional()
     @Override
     public Direction findById(long id) {
         logger.info("Invoke DirectionRepositoryImpl, method findById");
@@ -46,7 +46,7 @@ public class DirectionRepositoryImpl implements DirectionRepository {
                     .transporter(transporterRepository.findByID(rs.getLong("id")))
                     .duration(rs.getLong("duration"))
                     .build();
-        }, id)).findFirst().orElseThrow(()-> new DirectionNotFoundException("It is not possible to create the specified direction"));
+        }, id)).findFirst().orElseThrow(() -> new DirectionNotFoundException("It is not possible to create the specified direction"));
 
     }
 }

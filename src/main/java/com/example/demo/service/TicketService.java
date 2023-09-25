@@ -8,6 +8,7 @@ import com.example.demo.model.Ticket;
 import com.example.demo.repository.ticketRepository.TickerRepositoryImpl;
 import com.example.demo.service.mapper.TicketMapper;
 import com.example.demo.service.mapper.UserMapper;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -52,10 +53,10 @@ public class TicketService {
                 .toList();
     }
 
+    @Transactional()
     public TicketDTOOUT buyTicket(long id) {
         logger.info("Invoke  TicketService method buyTicket(id={})", id);
         Ticket ticket = tickerRepository.findById(id);
-        System.out.println(ticket);
         int rowsAffected = tickerRepository.updateStatus(id);
         System.out.println(rowsAffected);
         if (rowsAffected > 0) {

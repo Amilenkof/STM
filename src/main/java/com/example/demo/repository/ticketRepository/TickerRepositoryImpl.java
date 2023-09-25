@@ -41,8 +41,8 @@ public class TickerRepositoryImpl implements TicketRepository {
 
     private final String UDPATE_STATUS_SQL = """
             UPDATE ticket
-            SET status = ?
-            WHERE id = ? AND status = 'FREE ';
+            SET status = 'SOLD'
+            WHERE id = ? AND status = 'FREE';
                       """;
 
 
@@ -52,7 +52,7 @@ public class TickerRepositoryImpl implements TicketRepository {
         this.userRepository = userRepository;
     }
 
-
+    @Transactional()
     @Override
     public Ticket findById(long id) {
         logger.info("Invoke TicketRepositoryImpl, method findById");
@@ -74,6 +74,7 @@ public class TickerRepositoryImpl implements TicketRepository {
 
     }
 
+    @Transactional()
     @Override
     public Ticket greateNewTicket(Ticket ticket) {
         logger.info("Invoke TicketRepositoryImpl, method greateNewTicket");
@@ -90,12 +91,8 @@ public class TickerRepositoryImpl implements TicketRepository {
 
     }
 
-//    private boolean checkLenght(StringBuilder sb) {
-//        int length = sb.length();
-//        return length == defaultLength;
-//    }
 
-
+    @Transactional()
     @Override
     public List<Ticket> getAllTickets(int page, int size, String dateTime, String destinationPoint, String departurePoint, String transporterName) {
         logger.info("Invoke TicketRepositoryImpl, method getAllTickets");
@@ -147,25 +144,18 @@ public class TickerRepositoryImpl implements TicketRepository {
         return stringBuilder.toString();
     }
 
-
+    @Transactional()
     public int updateStatus(long id) {
         logger.info("Invoke TicketRepositoryImpl, method updateStatus ,id = {}", id);
-        Ticket ticket = findById(id);
-        return jdbcTemplate.update(UDPATE_STATUS_SQL,"SOLD", id);//todo не работает
+//        Ticket ticket = findById(id);
+        return jdbcTemplate.update(UDPATE_STATUS_SQL, id);//todo не работает
+
 
     }
 
-
+// private final String UDPATE_STATUS_SQL = """
+//            UPDATE ticket
+//            SET status = ?
+//            WHERE id = ? AND status = 'FREE ';
+//                      """;
 }
-//SELECT *
-//FROM ticket ti
-//JOIN direction d ON ti.direction_id = d.id
-//         JOIN transporter t ON t.id = d.transporter_id
-//WHERE
-//    ti.datetime='2023-09-19 09:46:41.974000'
-//    d.departure_point like 'Samara'AND
-//    d.destination_point like 'Moscow' AND
-//
-//    t.name= 'AvtOTrans' AND
-//OFFSET 0
-//LIMIT 100;

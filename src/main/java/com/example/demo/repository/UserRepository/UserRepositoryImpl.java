@@ -5,6 +5,7 @@ import com.example.demo.exception.ImpossibleCreateUserException;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.User;
 import com.example.demo.repository.transporterRepository.TransporterRepositoryImpl;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,10 +33,11 @@ public class UserRepositoryImpl implements UserRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    @Transactional()
     @Override
     public User findById(long id) {
-        logger.info("Invoke UserRepositoryImpl, method findById= {}",id);
-        if (id==0){
+        logger.info("Invoke UserRepositoryImpl, method findById= {}", id);
+        if (id == 0) {
             return null;//todo бредово- если нашел вернет если нет null- ошибки вообще никогда не будет
         }
         return (jdbcTemplate.queryForStream(FIND_BY_ID_SQL, (rs, row) -> {
@@ -52,6 +54,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     }
 
+    @Transactional()
     public User greateNewUser(User user) {
         logger.info("Invoke UserRepositoryImpl, method greateNewUser");
 

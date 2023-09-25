@@ -2,6 +2,7 @@ package com.example.demo.repository.transporterRepository;
 
 import com.example.demo.model.Transporter;
 import com.example.demo.repository.ticketRepository.TickerRepositoryImpl;
+import jakarta.transaction.Transactional;
 import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,9 +24,10 @@ public class TransporterRepositoryImpl implements TransporterRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    @Transactional()
     @Override
     public Transporter findByID(long id) {
-        logger.info("Invoke TransporterRepositoryImpl, method findById(id = {})",id);
+        logger.info("Invoke TransporterRepositoryImpl, method findById(id = {})", id);
 
         return (jdbcTemplate.queryForStream(FIND_TRANSPORTER_BY_ID_SQL, (rs, row) -> {
             new Transporter();
